@@ -2,17 +2,8 @@ import { Autocomplete, TextField, Chip } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
  
-const PayLists = () => {
-  const pays = [
-    { name: "0L", id: "1" },
-    { name: "10L", id: "2" },
-    { name: "20L", id: "3" },
-    { name: "30L", id: "4" },
-    { name: "40L", id: "5" },
-    { name: "50L", id: "6" },
-    { name: "60L", id: "6" },
-    { name: "70L", id: "6" },
-  ];
+const PayLists = ({filteredBasePayProp}) => {
+  const pays = filteredBasePayProp;
     const [selectedPays, setSelectedPays] = useState([pays[2], pays[3]]);
     const [payInputValue, setPayInputValue] = useState("");
  

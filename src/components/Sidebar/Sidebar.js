@@ -31,6 +31,7 @@ import SelectBasepay from '../MultiSelect/MultiSelectMinBasePay';
 import SelectRemoteModes from '../MultiSelect/MultiSelectRemoteSite';
 import Selectedlocations from '../MultiSelect/MultiSelectLocation';
 import SelectedExp from '../MultiSelect/MultiSelectMinExp';
+import SelectedCompany from '../MultiSelect/MultiSelectCompany';
 import { Button } from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import { fetchTodos } from '../../redux/slice/todo';
@@ -124,6 +125,69 @@ export default function MiniDrawer() {
   // State //
   const state = useSelector((state) => state);
   const { todo } = state;
+
+  // Roles //
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const handleRoleChange = (value) => {
+    setSelectedRoles(value);
+  };
+  const filteredDataRoles = state.todo.data.jdList.reduce((acc, curr, index) => {
+    const existingIndex = acc.findIndex(item => item.name === curr.jobRole);
+    if (existingIndex === -1) {
+        acc.push({ name: curr.jobRole, id: (acc.length).toString() });
+    }
+    return acc;
+  }, []);
+
+  // company name //
+  const [selectedCompanies, setSelectedCompanies] = useState([]);
+  const handleCompanyChange = (value) => {
+    setSelectedCompanies(value);
+  };
+  const filteredDataCompany = state.todo.data.jdList.reduce((acc, curr, index) => {
+    const existingIndex = acc.findIndex(item => item.name === curr.companyName);
+    if (existingIndex === -1) {
+        acc.push({ name: curr.companyName, id: (acc.length).toString() });
+    }
+    return acc;
+  }, []);
+
+  // min base pay //
+  const filteredDataBasePay = state.todo.data.jdList.reduce((acc, curr, index) => {
+    if (curr.minJdSalary !== null) { // Check for null values
+      const existingIndex = acc.findIndex(item => item.name === curr.minJdSalary);
+      if (existingIndex === -1) {
+        acc.push({ name: curr.minJdSalary, id: acc.length.toString() });
+      }
+    }
+    return acc;
+  }, []);
+
+  // location //
+  const filteredDataLocation = state.todo.data.jdList.reduce((acc, curr, index) => {
+    if (curr.location !== null) { // Check for null values
+      const existingIndex = acc.findIndex(item => item.name === curr.location);
+      if (existingIndex === -1) {
+        acc.push({ name: curr.location, id: acc.length.toString() });
+      }
+    }
+    return acc;
+  }, []);
+
+  // Min Exp //
+  const filteredDataExp = state.todo.data.jdList.reduce((acc, curr, index) => {
+    if (curr.minExp !== null) { // Check for null values
+      const existingIndex = acc.findIndex(item => item.name === curr.minExp);
+      if (existingIndex === -1) {
+        acc.push({ name: curr.minExp, id: acc.length.toString() });
+      }
+    }
+    return acc;
+  }, []);
+  // sorting //
+  filteredDataExp.sort((a, b) => {
+    return parseInt(a.name) - parseInt(b.name);
+  });
   
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -132,6 +196,21 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  // const filteredJobs = todo.data.jdList.filter((job) => {
+  //   if (selectedRoles.length === 0) return true;
+  //   return selectedRoles.some((role) => role.name === job.jobRole);
+  // });
+
+  // const filteredJobsCompany = todo.data.jdList.filter((job) => {
+  //   if (selectedCompanies.length === 0) return true;
+  //   return selectedCompanies.some((role) => role.name === job.companyName);
+  // });
+  const filteredJobs = todo.data.jdList.filter((job) => {
+    const roleFilter = selectedRoles.length === 0 || selectedRoles.some((role) => role.name === job.jobRole);
+    const companyFilter = selectedCompanies.length === 0 || selectedCompanies.some((company) => company.name === job.companyName);
+    return roleFilter && companyFilter;
+  });
 
   return (
     <Box sx={{ display: 'flex'}}>
@@ -231,20 +310,30 @@ export default function MiniDrawer() {
         <Card/>
         <div className='search-job'><SearchIcon /> <span style={{borderBottom: '1px solid lightgray'}}> Jobs</span></div>
         <div className='filters'>
-          <SelectRole/>
-          <SelectStack/>
-          <SelectBasepay/>
-          <SelectRemoteModes/>
-          <Selectedlocations />
-          <SelectedExp />
+            {state.todo.data.jdList.length > 0 ? (
+              <>
+              <SelectRole filterRoleProps={filteredDataRoles} onRoleChange={handleRoleChange} />
+              <SelectStack/>
+              <SelectBasepay filteredBasePayProp={filteredDataBasePay}/>
+              <SelectRemoteModes/>
+              <Selectedlocations filteredLocationProp={filteredDataLocation}/>
+              <SelectedExp filteredExpProp={filteredDataExp}/>
+              <SelectedCompany filteredCompanyProp={filteredDataCompany} onCompanyChange={handleCompanyChange}/>
+              </>
+            ) : (
+              "Loading..."
+            )}
         </div>
 
         <div className='cards-wrap'>
-          {
+          {/* {
             todo.data.jdList.map((item, index) => {
               return <JobCard props={item} key={index}/>
             })
-          }
+          } */}
+          {filteredJobs.map((job, index) => (
+            <JobCard props={job} key={index} />
+          ))}
         </div>
         <div className='scroll-wrapper'>
           <ScrollElement handleVisibleChange={handleVisibleChange} isVisible={isVisible}></ScrollElement>

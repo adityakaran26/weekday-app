@@ -2,16 +2,14 @@ import { Autocomplete, TextField, Chip } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
  
-const ModeLists = () => {
-  const modes = [
-    { name: "Remote", id: "1" },
-    { name: "Hybrid", id: "2" },
-    { name: "In-office", id: "3" },
-  ];
-  const [selectedModes, setSelectedMode] = useState([modes[1], modes[2]]);
-  const [modeInputValue, setModeInputValue] = useState("");
- 
-  console.log(selectedModes);
+const CompanyLists = ({filteredCompanyProp, onCompanyChange}) => {
+  const companies = filteredCompanyProp;
+    const [selectedCompaniess, setSelectedCompanies] = useState([]);
+    const [locationInputValue, setlocationInputValue] = useState("");
+
+    const handleCompanyChange = (event, value) => {
+        onCompanyChange(value);
+    };
  
   return (
     <React.Fragment>
@@ -20,14 +18,15 @@ const ModeLists = () => {
         multiple
         id="tags-outlined"
         style={{ width: "auto", minWidth: '15%' }}
-        options={modes}
+        options={companies}
         getOptionLabel={(option) => option.name}
-        defaultValue={selectedModes}
+        defaultValue={selectedCompaniess}
         filterSelectedOptions
+        onChange={handleCompanyChange}
         renderInput={(params) => (
             <TextField
             {...params}
-            label="Remote/On-site"
+            label="Companies"
             />
         )}
         />
@@ -35,4 +34,4 @@ const ModeLists = () => {
   );
 };
 
-export default ModeLists;
+export default CompanyLists;

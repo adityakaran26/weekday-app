@@ -2,14 +2,8 @@ import { Autocomplete, TextField, Chip } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
  
-const LocationLists = () => {
-  const locations = [
-    { name: "Bangalore", id: "1" },
-    { name: "Pune", id: "2" },
-    { name: "Delhi", id: "3" },
-    { name: "Mumbai", id: "4" },
-    { name: "Kolkatta", id: "5" },
-  ];
+const LocationLists = ({filteredLocationProp}) => {
+  const locations = filteredLocationProp;
     const [selectedlocations, setSelectedLocations] = useState([locations[2], locations[3]]);
     const [locationInputValue, setlocationInputValue] = useState("");
  
