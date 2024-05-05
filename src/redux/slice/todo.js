@@ -36,7 +36,6 @@ const todoSlice = createSlice({
             state.data = action.payload.initialLoad ? action.payload.res : {...action.payload.res, jdList: [...state.data.jdList, ...action.payload.res.jdList]}
             // state.data = state.initialLoad ? action.payload : {...action.payload, jdList: [...state.data.jdList, ...action.payload.jdList]};
             // state.data = {...action.payload, jdList: [...state.data.jdList, ...action.payload.jdList]};
-            console.log('****** FROM ACTION: ', action.payload)
         });
         builder.addCase(fetchTodos.rejected, (state, action) => {
             console.log('Error', action.payload)
