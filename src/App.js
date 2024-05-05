@@ -1,27 +1,24 @@
 import './App.css';
 import * as React from 'react';
 import Sidebar from './components/Sidebar/Sidebar';
+import Card from './components/Cards/Cards';
+import {useDispatch, useSelector} from 'react-redux';
+import { fetchTodos } from './redux/slice/todo';
 
 function App() {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const { todo } = state;
+  console.log('********State -->', state)
+
+  React.useEffect(() => {
+    dispatch(fetchTodos(true));
+  }, []);
+
+  
   return (
     <div className="App">
-      <Sidebar />
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Sidebar />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      
+      <Sidebar todo={todo}/>
     </div>
   );
 }

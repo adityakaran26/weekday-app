@@ -47,12 +47,146 @@
 .css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper, .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper {
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
+.search-job {
+  display: flex;
+  width: 100%;
+  margin-top: 26px;
+  font-size: 20px;
+  color: #316b83;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.filters {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.each-filter {
+  display: flex;
+  margin-right: 12px;
+  margin-bottom: 12px;
+}
+.each-filter input {
+  height: 18px;
+  font-size: small;
+}
+.filters label {
+  font-size: small;
+}
+.css-clttge-MuiAutocomplete-root .MuiOutlinedInput-root {
+  padding: 5px;
+}
+.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-clttge-MuiAutocomplete-root .MuiOutlinedInput-root, .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+  background: #fff;
+  padding-right: 34px !important;
+}
+.cards-wrap {
+  padding: 20px 0px;
+  max-width: 100%;
+  scroll-behavior: smooth;
+  scroll-margin-top: 90px;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+  margin-top: -24px;
+  width: calc(100% + 24px);
+  margin-left: -24px;
+  margin-top: 30px;
+  min-height: 1000px;
+  margin-bottom: 24px;
+}
+.cards-single {
+  flex: 0 1 94%;
+  margin: auto;
+  display: flex;
+  border: none !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 12px !important;
+}
+.company-logo {
+  border-radius: 5px;
+  width: 42px;
+  max-width: 100%;
+  overflow: hidden;
+}
+.logo-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+.company-name-role {
+  display: flex;
+  height: 100%;
+  justify-content: stretch;
+  align-items: start;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 13px;
 
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+}
+.company {
+  font-size: 16px;
+  color: #717d84;
+  font-weight: 600;
+}
+.save-icon {
+  display: flex;
+  color: #727e86;
+}
+.desc-wrap {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+  min-width: 100%;
+  margin-top: 22px;
+  position: relative;
+}
+.desc-wrap p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.apply-button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+.apply-button button {
+  background: #daebff;
+  color: #316b83;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+.apply-button button:hover {
+  background: #daebff;
+}
+.chips-wrap {
+  padding: 2px 9px;
+  /* background: #f6f6f6; */
+  background: #ffffff;
+  border-radius: 5px;
+  color: #546061;
+  margin-right: 4px;
+  font-size: 12px;
+  margin-top: 12px;
+}
+.link-icon {
+  width: 20px !important;
+}
+.right-slider , .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
+  margin-top: 66px;
+}
+.scroll-wrapper {
+  margin-top: 20px;
+}

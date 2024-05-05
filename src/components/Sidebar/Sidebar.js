@@ -24,6 +24,20 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import BusinessIcon from '@mui/icons-material/Business';
 import NetworkPingIcon from '@mui/icons-material/NetworkPing';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Card from '../Cards/Cards';
+import SelectRole from '../MultiSelect/MultiSelectRole';
+import SelectStack from '../MultiSelect/MultiSelectTechStack';
+import SelectBasepay from '../MultiSelect/MultiSelectMinBasePay';
+import SelectRemoteModes from '../MultiSelect/MultiSelectRemoteSite';
+import Selectedlocations from '../MultiSelect/MultiSelectLocation';
+import SelectedExp from '../MultiSelect/MultiSelectMinExp';
+import { Button } from '@mui/material';
+import {useDispatch, useSelector} from 'react-redux';
+import { fetchTodos } from '../../redux/slice/todo';
+import JobCard from '../Cards/JobCards';
+import ScrollElement from '../Scroll/Scroll';
+import { useEffect, useState } from "react";
+
 
 const drawerWidth = 240;
 
@@ -94,6 +108,57 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  // const [boolValue, setBool] = React.useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
+
+  // const handleVisibleChange = (value) => {
+  //   if (value && !isVisible) {
+  //     setIsVisible(value);
+  //     // Dispatch or console.log here if needed
+  //     console.log("***** BOOL-------->",value)
+  //     // dispatch(fetchTodos());
+  //   }
+  // };
+  // Dispatch //
+  const dispatch = useDispatch();
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleVisibleChange = (value) => {
+    // if(value && !isVisible) {
+      setIsVisible(value);
+      console.log("***** BOOL-------->",value)
+      // Dispatch or console.log here if needed
+      // dispatch(fetchTodos());
+    // }
+  };
+
+  
+  // const changeBool = (myVal) => {
+  //   if (myVal === true) {
+  //     console.log("***** BOOL-------->",myVal)
+  //     setBool(myVal);
+  //     // dispatch(fetchTodos(true));
+  //   }
+  // }
+
+  // State //
+  const state = useSelector((state) => state);
+  const { todo } = state;
+
+  function GetScrollVal (data) {
+    if(data === true) {
+      console.log('****** Scroll value ', data);
+      // dispatch(fetchTodos(true));
+    }
+  }
+  
+
+  // React.useEffect(() => {
+  //   console.log('*****Sidebar useeffect ----->',GetScrollVal);
+  //   // dispatch(fetchTodos(true));
+  // }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -196,14 +261,33 @@ export default function MiniDrawer() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, height: '100vh', background: '#f6f6f6' }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, height: '100vh', background: '#ffffff', display: 'flex', justifyContent: 'start', alignItems: 'center', flexDirection: "column"}}>
         <DrawerHeader />
-        <Typography paragraph>
-       
-        </Typography>
-        <Typography paragraph>
-          
-        </Typography>
+        <Card/>
+        <div className='search-job'><SearchIcon /> <span style={{borderBottom: '1px solid lightgray'}}> Jobs</span></div>
+        <div className='filters'>
+          <SelectRole/>
+          <SelectStack/>
+          <SelectBasepay/>
+          <SelectRemoteModes/>
+          <Selectedlocations />
+          <SelectedExp />
+        </div>
+        
+        {/* <div><Button onClick={() => dispatch(fetchTodos())}>Load Data</Button></div> */}
+        <div className='cards-wrap'>
+          {
+            todo.data.jdList.map((item, index) => {
+              return <JobCard props={item} key={index}/>
+            })
+          }
+        </div>
+        <p>isVisible: {isVisible.toString()}</p>
+        <div className='scroll-wrapper'>
+          {/* <ScrollElement onChildClick={GetScrollVal}></ScrollElement> */}
+          {/* <ScrollElement changeBool={changeBool}></ScrollElement> */}
+          <ScrollElement handleVisibleChange={handleVisibleChange} isVisible={isVisible}></ScrollElement>
+        </div>
       </Box>
     </Box>
   );
