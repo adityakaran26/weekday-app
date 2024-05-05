@@ -10,12 +10,12 @@ const ModeLists = () => {
   ];
   const [selectedModes, setSelectedMode] = useState([modes[1], modes[2]]);
   const [modeInputValue, setModeInputValue] = useState("");
- 
-  console.log(selectedModes);
+
  
   return (
     <React.Fragment>
       <Autocomplete
+        disabled
         className="each-filter"
         multiple
         id="tags-outlined"

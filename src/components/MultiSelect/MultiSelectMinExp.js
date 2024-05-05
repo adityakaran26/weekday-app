@@ -2,37 +2,49 @@ import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
  
-const ExpLists = ({filteredExpProp}) => {
+const ExpLists = ({filteredExpProp, onMinExpChange}) => {
   const exps = filteredExpProp;
-  const [selectedExp, setSelectedExp] = useState(exps[0]);
+  const [selectedExp, setSelectedExp] = useState([]);
   const [expInputValue, setExpInputValue] = useState("");
  
-  console.log(selectedExp);
+  const handleMinExpChange = (event, value) => {
+    onMinExpChange(value);
+  };
  
   return (
     <React.Fragment>
-      <Autocomplete
+      {/* <Autocomplete
         className="each-filter"
         defaultValue={selectedExp}
         style={{ width: "auto", minWidth: '15%' }}
         options={exps}
         getOptionLabel={(option) => option.name}
-        renderOption={(props, option) => (
-          <Box component='li' {...props}>
-            {option.name}
-          </Box>
-        )}
-        onChange={(event, newVal) => {
-            setSelectedExp(newVal);
-        }}
-        inputValue={expInputValue}
-        onInputChange={(event, newExpInputValue) => {
-            setExpInputValue(newExpInputValue);
-        }}
+        // onChange={(event, newVal) => {
+        //     // setSelectedExp(newVal);
+        // }}
+        onChange={handleMinExpChange}
         renderInput={(params) => {
           return <TextField label='Experience' {...params} />;
         }}
-      ></Autocomplete>
+      ></Autocomplete> */}
+
+      <Autocomplete
+        className="each-filter"
+        multiple
+        id="tags-outlined"
+        style={{ width: "auto", minWidth: '15%' }}
+        options={exps}
+        getOptionLabel={(option) => option.name}
+        defaultValue={selectedExp}
+        filterSelectedOptions
+        onChange={handleMinExpChange}
+        renderInput={(params) => (
+            <TextField
+            {...params}
+            label="Locations"
+            />
+        )}
+        />
     </React.Fragment>
   );
 };

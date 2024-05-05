@@ -13,35 +13,10 @@ const StackLists = () => {
     const [selectedStacks, setSelectedStacks] = useState([stacks[2], stacks[3]]);
     const [stackInputValue, setStackInputValue] = useState("");
  
-  console.log(selectedStacks);
- 
   return (
     <React.Fragment>
-      {/* <Autocomplete
-        className="each-filter"
-        multiple
-        defaultValue={selectedStacks}
-        style={{ width: "auto", minWidth: '15%' }}
-        options={stacks || []}
-
-        getOptionLabel={(option) => option.name}
-        renderOption={(props, option) => (
-          <Box component='li' key={option.id} {...props}>
-            {option.name}
-          </Box>
-        )}
-        onChange={(event, newVal) => {
-            setSelectedStacks(newVal);
-        }}
-        inputValue={stackInputValue}
-        onInputChange={(event, newStackInputValue) => {
-            setStackInputValue(newStackInputValue);
-        }}
-        renderInput={(params) => {
-          return <TextField label='Tech Stack' {...params} />;
-        }}
-      ></Autocomplete> */}
       <Autocomplete
+        disabled
         className="each-filter"
         multiple
         id="tags-outlined"

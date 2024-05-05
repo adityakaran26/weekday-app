@@ -153,6 +153,10 @@ export default function MiniDrawer() {
   }, []);
 
   // min base pay //
+  const [selectedPay, setSelectedPay] = useState([]);
+  const handlePayChange = (value) => {
+    setSelectedPay(value);
+  };
   const filteredDataBasePay = state.todo.data.jdList.reduce((acc, curr, index) => {
     if (curr.minJdSalary !== null) { // Check for null values
       const existingIndex = acc.findIndex(item => item.name === curr.minJdSalary);
@@ -164,6 +168,10 @@ export default function MiniDrawer() {
   }, []);
 
   // location //
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const handleLocationChange = (value) => {
+    setSelectedLocations(value);
+  };
   const filteredDataLocation = state.todo.data.jdList.reduce((acc, curr, index) => {
     if (curr.location !== null) { // Check for null values
       const existingIndex = acc.findIndex(item => item.name === curr.location);
@@ -175,6 +183,10 @@ export default function MiniDrawer() {
   }, []);
 
   // Min Exp //
+  const [selectedMinExp, setSelectedMinExp] = useState([]);
+  const handleMinExpChange = (value) => {
+    setSelectedMinExp(value);
+  };
   const filteredDataExp = state.todo.data.jdList.reduce((acc, curr, index) => {
     if (curr.minExp !== null) { // Check for null values
       const existingIndex = acc.findIndex(item => item.name === curr.minExp);
@@ -188,6 +200,9 @@ export default function MiniDrawer() {
   filteredDataExp.sort((a, b) => {
     return parseInt(a.name) - parseInt(b.name);
   });
+
+  // console.log('********* Min Expericence ***** ->', filteredDataExp)
+  // console.log('********* Location ***** ->', filteredDataLocation)
   
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -197,19 +212,14 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  // const filteredJobs = todo.data.jdList.filter((job) => {
-  //   if (selectedRoles.length === 0) return true;
-  //   return selectedRoles.some((role) => role.name === job.jobRole);
-  // });
-
-  // const filteredJobsCompany = todo.data.jdList.filter((job) => {
-  //   if (selectedCompanies.length === 0) return true;
-  //   return selectedCompanies.some((role) => role.name === job.companyName);
-  // });
   const filteredJobs = todo.data.jdList.filter((job) => {
     const roleFilter = selectedRoles.length === 0 || selectedRoles.some((role) => role.name === job.jobRole);
     const companyFilter = selectedCompanies.length === 0 || selectedCompanies.some((company) => company.name === job.companyName);
-    return roleFilter && companyFilter;
+    const basePayFilter = selectedPay.length === 0 || selectedPay.some((basePay) => basePay.name === job.minJdSalary);
+    const locationFilter = selectedLocations.length === 0 || selectedLocations.some((location) => location.name === job.location);
+    const expFilter = selectedMinExp.length === 0 || selectedMinExp.some((exp) => exp.name === job.minExp);
+  
+    return roleFilter && companyFilter && basePayFilter && locationFilter && expFilter;
   });
 
   return (
@@ -314,10 +324,10 @@ export default function MiniDrawer() {
               <>
               <SelectRole filterRoleProps={filteredDataRoles} onRoleChange={handleRoleChange} />
               <SelectStack/>
-              <SelectBasepay filteredBasePayProp={filteredDataBasePay}/>
+              <SelectBasepay filteredBasePayProp={filteredDataBasePay} onPayChange={handlePayChange}/>
               <SelectRemoteModes/>
-              <Selectedlocations filteredLocationProp={filteredDataLocation}/>
-              <SelectedExp filteredExpProp={filteredDataExp}/>
+              <Selectedlocations filteredLocationProp={filteredDataLocation} onLocationChange={handleLocationChange}/>
+              <SelectedExp filteredExpProp={filteredDataExp} onMinExpChange={handleMinExpChange}/>
               <SelectedCompany filteredCompanyProp={filteredDataCompany} onCompanyChange={handleCompanyChange}/>
               </>
             ) : (

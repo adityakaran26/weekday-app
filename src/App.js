@@ -9,7 +9,6 @@ function App() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { todo } = state;
-  console.log('********State -->', state)
 
   React.useEffect(() => {
     dispatch(fetchTodos(true));
